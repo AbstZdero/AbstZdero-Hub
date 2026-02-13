@@ -1,4 +1,4 @@
---// Wizard UI Library
+⁰⁰--// Wizard UI Library
 local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
 
 local Players = game:GetService("Players")
@@ -198,9 +198,9 @@ end)
 local function notify(title, text, duration)
     pcall(function()
         game:GetService("StarterGui"):SetCore("SendNotification", {
-            Title = title,
-            Text = text,
-            Duration = duration or 3
+            Title = Gun has Spawned!,
+            Text = Monster Killed Sheriff,
+            Duration = 3
         })
     end)
 end
@@ -224,7 +224,7 @@ checkGunSpawn()
 -- Detect when GunPickupHolder spawns
 workspace.ChildAdded:Connect(function(child)
     if child.Name == "GunPickupHolder" then
-        task.wait(0.2)
+        task.wait(0.1)
         checkGunSpawn()
     end
 end)
