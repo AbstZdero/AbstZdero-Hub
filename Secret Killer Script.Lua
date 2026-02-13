@@ -192,3 +192,39 @@ MainTab:CreateButton("Get Gun", function()
     -- Teleport back
     hrp.CFrame = savedCFrame
 end)
+
+--// Gun Spawn Notification
+
+local function notify(title, text, duration)
+    pcall(function()
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = title,
+            Text = text,
+            Duration = duration or 3
+        })
+    end)
+end
+
+local function checkGunSpawn()
+    local gunHolder = workspace:FindFirstChild("GunPickupHolder")
+    if not gunHolder then return end
+
+    local gunPickup = gunHolder:FindFirstChild("GunPickup")
+    if not gunPickup then return end
+
+    local gunPart = gunPickup:FindFirstChild("Part")
+    if gunPart then
+        notify("Gun has Spawned!", "GunPickup is now available.", 3)
+    end
+end
+
+-- Check if already exists
+checkGunSpawn()
+
+-- Detect when GunPickupHolder spawns
+workspace.ChildAdded:Connect(function(child)
+    if child.Name == "GunPickupHolder" then
+        task.wait(0.2)
+        checkGunSpawn()
+    end
+end)
