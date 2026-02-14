@@ -197,8 +197,6 @@ end)
 
 wait(2)
 
---// Safe Gun Spawn Detection
-
 repeat task.wait() until game:IsLoaded()
 
 local StarterGui = game:GetService("StarterGui")
