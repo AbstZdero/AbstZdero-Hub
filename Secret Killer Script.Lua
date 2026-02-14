@@ -193,7 +193,9 @@ MainTab:CreateButton("Get Gun", function()
     hrp.CFrame = savedCFrame
 end)
 
--- Done
+-- Wait (0.5)
+
+Wait(0.5)
 
 --// Safe Gun Spawn Detection
 
