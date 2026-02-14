@@ -1,4 +1,4 @@
-⁰⁰--// Wizard UI Library
+--// Wizard UI Library
 local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
 
 local Players = game:GetService("Players")
@@ -191,4 +191,50 @@ MainTab:CreateButton("Get Gun", function()
 
     -- Teleport back
     hrp.CFrame = savedCFrame
+end)
+
+--// Safe Gun Spawn Detection
+
+repeat task.wait() until game:IsLoaded()
+
+local StarterGui = game:GetService("StarterGui")
+
+-- Safe notification function (retry until works)
+local function notify(title, text, duration)
+    task.spawn(function()
+        for i = 1,5 do
+            local success = pcall(function()
+                StarterGui:SetCore("SendNotification", {
+                    Title = title,
+                    Text = text,
+                    Duration = duration or 3
+                })
+            end)
+            if success then break end
+            task.wait(0.5)
+        end
+    end)
+end
+
+local GunExists = false
+
+local function checkGun()
+    local gunPart = workspace:FindFirstChild("GunPickupHolder")
+        and workspace.GunPickupHolder:FindFirstChild("GunPickup")
+        and workspace.GunPickupHolder.GunPickup:FindFirstChild("Part")
+
+    if gunPart and not GunExists then
+        GunExists = true
+        notify("Gun has Spawned!", "GunPickup is now available.", 3)
+    elseif not gunPart then
+        GunExists = false
+    end
+end
+
+-- Loop check (more reliable for Delta)
+task.spawn(function()
+    while true do
+        checkGun()
+        task.wait(0.5)
+    end
 end)
