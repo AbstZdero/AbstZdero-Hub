@@ -193,6 +193,8 @@ MainTab:CreateButton("Get Gun", function()
     hrp.CFrame = savedCFrame
 end)
 
+-- Done
+
 --// Safe Gun Spawn Detection
 
 repeat task.wait() until game:IsLoaded()
