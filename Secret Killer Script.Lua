@@ -1,3 +1,9 @@
+--// Target PlaceId
+local TARGET_PLACE_ID = 16039690331
+
+--// Check if we're in the correct game
+if game.PlaceId == TARGET_PLACE_ID then
+ 
 --// Wizard UI Library
 local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
 
