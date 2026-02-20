@@ -1,5 +1,5 @@
 --// Target PlaceId
-local TARGET_PLACE_ID = 16039690331
+local TARGET_PLACE_ID = 142823291
 
 --// Check if we're in the correct game
 if game.PlaceId == TARGET_PLACE_ID then
