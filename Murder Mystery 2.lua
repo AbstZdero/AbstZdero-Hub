@@ -106,7 +106,7 @@ local function updateNameESP(player)
     local text = gui:FindFirstChildOfClass("TextLabel")
     text.Text = player.Name
 
-    local hasMonster = itemCheck(player, "Knife")
+    local hasMurderer = itemCheck(player, "Knife")
     local hasGun = itemCheck(player, "Gun")
 
     if hasMurderer then
