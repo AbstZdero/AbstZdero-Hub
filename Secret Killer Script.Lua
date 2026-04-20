@@ -156,8 +156,8 @@ ESPSection:CreateToggle("Sheriff ESP", function(v) SheriffESP = v end)
 ESPSection:CreateToggle("Innocent ESP", function(v) InnocentESP = v end)
 ESPSection:CreateToggle("Name ESP", function(v) NameESP = v end)
 
---// Get Gun Button
-MainTab:CreateButton("Get Gun", function()
+--// Get Closest Gun Button
+MainTab:CreateButton("Get Closest Gun", function()
 
     local character = LocalPlayer.Character
     if not character then return end
@@ -165,30 +165,42 @@ MainTab:CreateButton("Get Gun", function()
     local hrp = character:FindFirstChild("HumanoidRootPart")
     if not hrp then return end
 
-    -- Save position
-    local savedCFrame = hrp.CFrame
-
-    -- Find gun safely
     local gunHolder = workspace:FindFirstChild("GunPickupHolder")
-    local gunPickup = gunHolder and gunHolder:FindFirstChild("GunPickup")
-    local gunPart = gunPickup and gunPickup:FindFirstChild("Part")
+    if not gunHolder then return end
 
-    -- If not found, send notification
-    if not gunPart then
+    local closestPart = nil
+    local shortestDistance = math.huge
+
+    -- Loop through all GunPickup models
+    for _, gunPickup in pairs(gunHolder:GetChildren()) do
+        if gunPickup:IsA("Model") then
+            local part = gunPickup:FindFirstChild("Part")
+            if part and part:IsA("BasePart") then
+                local distance = (hrp.Position - part.Position).Magnitude
+
+                if distance < shortestDistance then
+                    shortestDistance = distance
+                    closestPart = part
+                end
+            end
+        end
+    end
+
+    -- If no gun found
+    if not closestPart then
         pcall(function()
             game:GetService("StarterGui"):SetCore("SendNotification", {
-                Title = "Not Found Gun Part",
-                Text = "GunPickupHolder.GunPickup.Part does not exist!",
+                Title = "No Gun Found",
+                Text = "No available GunPickup nearby!",
                 Duration = 3
             })
         end)
         return
     end
 
-    -- Teleport to gun
-    hrp.CFrame = gunPart.CFrame
-    task.wait(0.1)
+    -- Touch the closest gun
+    firetouchinterest(hrp, closestPart, 0)
+    task.wait()
+    firetouchinterest(hrp, closestPart, 1)
 
-    -- Teleport back
-    hrp.CFrame = savedCFrame
 end)
