@@ -156,8 +156,8 @@ ESPSection:CreateToggle("Sheriff ESP", function(v) SheriffESP = v end)
 ESPSection:CreateToggle("Innocent ESP", function(v) InnocentESP = v end)
 ESPSection:CreateToggle("Name ESP", function(v) NameESP = v end)
 
---// Get Closest Gun Button
-MainTab:CreateButton("Get Closest Gun", function()
+--// Get Gun Button
+MainTab:CreateButton("Get Gun", function()
 
     local character = LocalPlayer.Character
     if not character then return end
